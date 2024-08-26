@@ -49,8 +49,8 @@ public class SharedAccountFinancialReportPresenter extends FinancialReportPresen
         this.viewModel.firePropertyChange();
 
         this.viewManager.setActiveViewName(viewModel.getViewName());
-
-        TextToSpeech TTS = new TextToSpeech();
-        TTS.speak(reportContent);
+//
+//        TextToSpeech TTS = new TextToSpeech();
+//        TTS.speak(reportContent);
     }
 }
