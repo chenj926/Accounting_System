@@ -59,10 +59,10 @@ public class UserAccountFinancialReportPanel extends JPanel {
         this.viewModel.addPropertyChangeListener(evt -> {
             if ("userAccountFinancialReport".equals(evt.getPropertyName())){
                 this.reportTextArea.setText(viewModel.getReportContent());
-                TextToSpeech TTS = new TextToSpeech();
-                TTS.speak(viewModel.getReportContent());
-                initializeJavaFX(); // Initialize JavaFX before playing audio
-                playAudio(); // Play the audio when the view becomes visible
+//                TextToSpeech TTS = new TextToSpeech();
+//                TTS.speak(viewModel.getReportContent());
+//                initializeJavaFX(); // Initialize JavaFX before playing audio
+//                playAudio(); // Play the audio when the view becomes visible
             }
         });
 
@@ -117,7 +117,7 @@ public class UserAccountFinancialReportPanel extends JPanel {
      */
     private void setupListeners() {
         this.backButton.addActionListener(e -> {
-            stopAudio(); // Stop the audio when the view becomes invisible
+//            stopAudio(); // Stop the audio when the view becomes invisible
             viewManager.setActiveViewName("Homepage Two");
         });
     }
@@ -136,41 +136,41 @@ public class UserAccountFinancialReportPanel extends JPanel {
         reportTextArea.setText("");
     }
 
-    // Method to initialize JavaFX, but only once
-    private void initializeJavaFX() {
-        if (!this.viewManager.isJavaFXInitialized()) {
-            Platform.startup(() -> {
-                // JavaFX Toolkit initialized
-//                isJavaFXInitialized = true;
-                viewManager.setJavaFXInitialized(true);
-            });
-        }
-    }
+//    // Method to initialize JavaFX, but only once
+//    private void initializeJavaFX() {
+//        if (!this.viewManager.isJavaFXInitialized()) {
+//            Platform.startup(() -> {
+//                // JavaFX Toolkit initialized
+////                isJavaFXInitialized = true;
+//                viewManager.setJavaFXInitialized(true);
+//            });
+//        }
+//    }
 
-    // Method to play the audio (MP3 file)
-    public void playAudio() {
-        String audioFilePath = System.getProperty("user.dir") + "/src/main/data/audio_files/Audio.mp3";
-        Platform.runLater(() -> {
-            try {
-                if (mediaPlayer != null) {
-                    mediaPlayer.dispose(); // Dispose the previous player
-                }
-                Media media = new Media(new File(audioFilePath).toURI().toString());
-                mediaPlayer = new MediaPlayer(media);
-                mediaPlayer.play();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
+//    // Method to play the audio (MP3 file)
+//    public void playAudio() {
+//        String audioFilePath = System.getProperty("user.dir") + "/src/main/data/audio_files/Audio.mp3";
+//        Platform.runLater(() -> {
+//            try {
+//                if (mediaPlayer != null) {
+//                    mediaPlayer.dispose(); // Dispose the previous player
+//                }
+//                Media media = new Media(new File(audioFilePath).toURI().toString());
+//                mediaPlayer = new MediaPlayer(media);
+//                mediaPlayer.play();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        });
+//    }
 
-    // Method to stop the audio
-    public void stopAudio() {
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            mediaPlayer.dispose();
-            mediaPlayer = null;
-        }
-    }
+//    // Method to stop the audio
+//    public void stopAudio() {
+//        if (mediaPlayer != null) {
+//            mediaPlayer.stop();
+//            mediaPlayer.dispose();
+//            mediaPlayer = null;
+//        }
+//    }
 
 }
