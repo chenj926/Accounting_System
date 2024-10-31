@@ -1,0 +1,19 @@
+/* Custom styles for the UA and ISA sections */
+.account-tabs {
+    display: flex;  /*Uses Flexbox for layout to align items in a row.*/
+    justify-content: space-between; /*pushing items to both ends*/
+    margin-bottom: 20px;
+}
+.account-tabs div {
+    flex: 1;  /*grow and fill the available space equally*/
+    text-align: center;
+    padding: 15px;
+    font-size: 24px;
+    background-color: #f2f2f2;
+    border-radius: 10px; /*Rounds the corners of the tabs.*/
+    margin: 0 10px;
+}
+.account-tabs div.active {
+    background-color: #007bff;
+    color: white;
+}
