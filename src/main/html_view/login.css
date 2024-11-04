@@ -29,3 +29,9 @@ footer {
     width: 100%;       /* Ensure it spans full width */
     box-sizing: border-box;  /* Include padding in the element's width */
 }
+
+
+#loginButton {
+    background-color: #8ecae6;
+    border-color: #8ecae6; /* Set border color to match */
+}
