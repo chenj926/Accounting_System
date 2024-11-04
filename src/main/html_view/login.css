@@ -14,12 +14,12 @@
     margin: 0 10px;
 }
 .account-tabs div.active {
-    background-color: #007bff;
+    background-color: #8ecae6;
     color: white;
 }
 
 footer {
-    background-color: #007bff;
+    background-color: #8ecae6;
     color: white;
     text-align: center;
     padding: 10px 0;
