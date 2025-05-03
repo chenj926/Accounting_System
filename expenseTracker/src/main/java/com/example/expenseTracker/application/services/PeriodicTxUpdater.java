@@ -15,6 +15,7 @@ public class PeriodicTxUpdater {
         this.jwt = jwt;
     }
 
+    // update to backend 定期 update latter
     public void updateForUserSinceLastLogin(UserAccount userAccount) {
         txPort.createMissingTransactionsForUser(userAccount.getId(), userAccount.getLastLoginAt());
     }
