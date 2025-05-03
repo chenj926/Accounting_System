@@ -4,6 +4,7 @@ import com.example.expenseTracker.domain.entity.account.Account;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,17 +22,18 @@ public class UserAccount extends Account {
     /**
      * Constructs a UserAccount with empty shared accounts and zeroed balances.
      */
-    public UserAccount(String username, String password, String identification) {
-        super(username, password, identification);
+    public UserAccount(String username, String password, Long userAccountId, String email,
+                       Instant lastLoginAt) {
+        super(username, password, userAccountId, email, lastLoginAt);
         this.sharedAccounts = new HashSet<>();
     }
 
     /**
      * Constructs a UserAccount with specified balances and empty shared accounts.
      */
-    public UserAccount(String username, String password, String identification,
+    public UserAccount(String username, String password, Long userAccountId, String email, Instant lastLoginAt,
                        float totalIncome, float totalOutflow, float totalBalance) {
-        super(username, password, identification, totalIncome, totalOutflow, totalBalance);
+        super(username, password, userAccountId, email, lastLoginAt, totalIncome, totalOutflow, totalBalance);
         this.sharedAccounts = new HashSet<>();
     }
 

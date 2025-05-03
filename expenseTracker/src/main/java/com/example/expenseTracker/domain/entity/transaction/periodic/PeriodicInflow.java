@@ -11,9 +11,9 @@ import java.time.LocalDate;
  * @author Eric
  */
 public class PeriodicInflow extends PeriodicTransaction {
-    public PeriodicInflow(String identification, float amount, LocalDate startDate, String description,
+    public PeriodicInflow(String id, float amount, LocalDate startDate, String description,
                           LocalDate endDate, String period, String category) {
-        super(identification, amount, startDate, description, endDate, period, category);
+        super(id, amount, startDate, description, endDate, period, category);
 
     }
 }

@@ -5,6 +5,7 @@ import com.example.expenseTracker.domain.entity.transaction.TransactionComparato
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,9 @@ public abstract class Account {
     protected String password;
 
     /** Unique identifier for the account */
-    protected String identification;
+    protected Long id;
+
+    protected String email;
 
     /** List of financial transactions */
     protected List<Transaction> transactions;
@@ -41,33 +44,38 @@ public abstract class Account {
     protected float totalBalance;
 
     /** Last login date */
-    protected LocalDate lastLoginDate;
+    protected Instant lastLoginAt;
 
     /**
      * Constructs an Account with default balances and empty transaction list.
      */
-    public Account(String username, String password, String identification) {
+    public Account(String username, String password, Long id, String email,
+                   Instant lastLoginAt) {
         this.username = username;
         this.password = password;
-        this.identification = identification;
+        this.id = id;
+        this.email = email;
         this.transactions = new ArrayList<>();
         this.totalIncome = 0.0f;
         this.totalOutflow = 0.0f;
         this.totalBalance = 0.0f;
+        this.lastLoginAt = lastLoginAt;
     }
 
     /**
      * Constructs an Account with specified balances.
      */
-    public Account(String username, String password, String identification,
+    public Account(String username, String password, Long id, String email, Instant lastLoginAt,
                    float totalIncome, float totalOutflow, float totalBalance) {
         this.username = username;
         this.password = password;
-        this.identification = identification;
+        this.id = id;
+        this.email = email;
         this.transactions = new ArrayList<>();
         this.totalIncome = totalIncome;
         this.totalOutflow = totalOutflow;
         this.totalBalance = totalBalance;
+        this.lastLoginAt = lastLoginAt;
     }
 
     /**

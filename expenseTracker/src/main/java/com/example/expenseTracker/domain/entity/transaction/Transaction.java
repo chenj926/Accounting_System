@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public abstract class Transaction {
-    protected String identification;
+    protected String id;
     protected float amount;
     protected LocalDate date;
     protected String description;

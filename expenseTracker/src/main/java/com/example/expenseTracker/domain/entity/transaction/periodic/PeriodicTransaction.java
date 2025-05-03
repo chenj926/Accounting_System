@@ -22,9 +22,9 @@ public class PeriodicTransaction extends Transaction {
     /**
      * Constructs a PeriodicTransaction with specified attributes.
      */
-    public PeriodicTransaction(String identification, float amount, LocalDate startDate, String description,
+    public PeriodicTransaction(String id, float amount, LocalDate startDate, String description,
                                LocalDate endDate, String period, String transactionCategory) {
-        this.identification = identification;
+        this.id = id;
         this.amount = amount;
         this.startDate = startDate;
         this.endDate = endDate;

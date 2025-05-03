@@ -20,17 +20,17 @@ public class SharedAccount extends Account {
     /**
      * Constructs a SharedAccount with shared user IDs and password.
      */
-    public SharedAccount(String shareAccountIdentification, Set<String> userIds, String sharedAccountPassword) {
-        super(null, sharedAccountPassword, shareAccountIdentification);
+    public SharedAccount(String shareAccountId, Set<String> userIds, String sharedAccountPassword) {
+        super(null, sharedAccountPassword, shareAccountId);
         this.sharedUserIdentifications = userIds;
     }
 
     /**
      * Constructs a SharedAccount with full financial data and user IDs.
      */
-    public SharedAccount(String shareAccountIdentification, Set<String> userIds, String sharedAccountPassword,
+    public SharedAccount(String shareAccountId, Set<String> userIds, String sharedAccountPassword,
                          float totalIncome, float totalOutflow, float totalBalance) {
-        super(null, sharedAccountPassword, shareAccountIdentification,
+        super(null, sharedAccountPassword, shareAccountId,
                 totalIncome, totalOutflow, totalBalance);
         this.sharedUserIdentifications = userIds;
     }
@@ -38,14 +38,14 @@ public class SharedAccount extends Account {
     /**
      * Adds a user ID to the shared user set.
      */
-    public void addUserIdentification(String identification) {
-        sharedUserIdentifications.add(identification);
+    public void addUserIdentification(String id) {
+        sharedUserIdentifications.add(id);
     }
 
     /**
      * Removes a user ID from the shared user set.
      */
-    public void removeUserIdentification(String identification) {
-        sharedUserIdentifications.remove(identification);
+    public void removeUserIdentification(String id) {
+        sharedUserIdentifications.remove(id);
     }
 }

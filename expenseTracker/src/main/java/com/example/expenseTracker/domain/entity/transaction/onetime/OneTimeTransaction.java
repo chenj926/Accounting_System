@@ -19,14 +19,14 @@ public class OneTimeTransaction extends Transaction {
     /**
      * Constructs a OneTimeTransaction object with the specified details.
      *
-     * @param identification the identification of the transaction
+     * @param id             the identification of the transaction
      * @param amount         the amount of the transaction
      * @param date           the date of the transaction
      * @param description    the description of the transaction
      * @param category       the category of the transaction
      */
-    public OneTimeTransaction(String identification, float amount, LocalDate date, String description, String category) {
-        this.identification = identification;
+    public OneTimeTransaction(String id, float amount, LocalDate date, String description, String category) {
+        this.id = id;
         this.amount = amount;
         this.date = date;
         this.description = description;

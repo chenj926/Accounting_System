@@ -3,6 +3,7 @@ package com.example.expenseTracker.domain.entity.account;
 import com.example.expenseTracker.domain.entity.account.shared_acc.SharedAccount;
 import com.example.expenseTracker.domain.entity.account.user_acc.UserAccount;
 
+import java.time.Instant;
 import java.util.Set;
 
 /**
@@ -14,25 +15,26 @@ import java.util.Set;
 public class AccountFactory {
 
     /**
-     * Creates a new UserAccount object with the specified username, password, and identification.
+     * Creates a new UserAccount object with the specified username, password, and id.
      *
      * @param username       the username for the new user account
      * @param password       the password for the new user account
-     * @param identification the identification for the new user account
+     * @param id the id for the new user account
      * @return a new UserAccount object
      */
-    public UserAccount createUserAccount(String username, String password, String identification) {
-        return new UserAccount(username, password, identification);
+    public UserAccount createUserAccount(String username, String password, Long id, String email,
+                                         Instant lastLoginAt) {
+        return new UserAccount(username, password, id, email, lastLoginAt);
     }
 
     /**
-     * Creates a new SharedAccount object with the specified identification.
+     * Creates a new SharedAccount object with the specified id.
      *
-     * @param sharedAccountIdentification the identification for the new shared account
+     * @param sharedAccountid the id for the new shared account
      * @param sharedAccountPassword the password for the new shared account
      * @return a new SharedAccount object
      */
-    public SharedAccount createSharedAccount(String sharedAccountIdentification, Set<String> users, String sharedAccountPassword) {
-        return new SharedAccount(sharedAccountIdentification, users, sharedAccountPassword);
+    public SharedAccount createSharedAccount(String sharedAccountid, Set<String> users, String sharedAccountPassword) {
+        return new SharedAccount(sharedAccountid, users, sharedAccountPassword);
     }
 }

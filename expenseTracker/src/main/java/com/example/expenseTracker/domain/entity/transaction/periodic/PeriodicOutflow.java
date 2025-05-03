@@ -15,15 +15,15 @@ public class PeriodicOutflow extends PeriodicTransaction {
     /**
      * Constructs a PeriodicOutflow object with the specified details.
      *
-     * @param identification the identification of the transaction
+     * @param id             the id of the transaction
      * @param amount         the amount of the transaction
      * @param startDate      the start date of the transaction
      * @param description    the description of the transaction
      * @param endDate        the end date of the transaction
      * @param period         the period of the transaction in days
      */
-    public PeriodicOutflow(String identification, float amount, LocalDate startDate, String description,
+    public PeriodicOutflow(String id, float amount, LocalDate startDate, String description,
                            LocalDate endDate, String period, String category) {
-        super(identification, amount, startDate, description, endDate, period, category);
+        super(id, amount, startDate, description, endDate, period, category);
     }
 }
