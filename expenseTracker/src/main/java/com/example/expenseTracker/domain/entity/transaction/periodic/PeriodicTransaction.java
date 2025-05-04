@@ -1,8 +1,13 @@
 package com.example.expenseTracker.domain.entity.transaction.periodic;
 
 import com.example.expenseTracker.domain.entity.transaction.Transaction;
+import com.example.expenseTracker.domain.entity.transaction.onetime.OneTimeTransaction;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.math.BigDecimal;
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
 
 /**
@@ -15,23 +20,45 @@ import java.time.LocalDate;
 @Setter
 public class PeriodicTransaction extends Transaction {
 
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private String period;
+    private Duration interval;
+    private Instant lastExecutedAt;
 
     /**
      * Constructs a PeriodicTransaction with specified attributes.
      */
-    public PeriodicTransaction(String id, float amount, LocalDate startDate, String description,
-                               LocalDate endDate, String period, String transactionCategory) {
-        this.id = id;
-        this.amount = amount;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.period = period;
-        this.description = description;
-        this.inflow = (amount >= 0);
-        this.date = startDate;
-        this.transactionCategory = transactionCategory;
+    public PeriodicTransaction(Long id, Long accountId, BigDecimal amount,
+                               String description, Instant createTime, Txtype txtype,
+                               String transactionCategory,
+                               Duration interval, Instant lastExecutedAt) {
+        super(id, accountId, amount, description, createTime, txtype, transactionCategory);
+        this.interval = interval;
+        this. lastExecutedAt = lastExecutedAt;
+    }
+
+    /**
+     * Returns true if a new instance should be generated now
+     *
+     * A transaction is considered due if:
+     * - It has never been run before (`lastRun == null`), or
+     * - The time since the last run is greater than or equal to the interval.
+     *
+     * @param now The current timestamp to compare against the last run time.
+     * @return true if the transaction should run again; false otherwise.
+     */
+    public boolean isExecutionDue(Instant now) {
+        return this.lastExecutedAt == null
+                || this.lastExecutedAt.plus(this.interval).isBefore(now);
+    }
+
+    /** Mark this rule as executed at <code>now</code>. */
+    public void markExecuted(Instant now) {
+        this.lastExecutedAt = now;
+    }
+
+    /** Factory that materialises the cash event. */
+    public OneTimeTransaction createInstance(Instant executionTime) {
+        return new OneTimeTransaction(
+                null, getAccountId(), getAmount(), getDescription(),
+                executionTime, getTxtype(), getTransactionCategory());
     }
 }

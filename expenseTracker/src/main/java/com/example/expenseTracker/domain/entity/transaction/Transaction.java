@@ -3,6 +3,8 @@ package com.example.expenseTracker.domain.entity.transaction;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
 
 /**
@@ -18,15 +20,32 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public abstract class Transaction {
-    protected String id;
-    protected float amount;
-    protected LocalDate date;
+    protected Long id;
+    protected Long accountId;
+    protected BigDecimal amount;
+    protected Instant createTime;
     protected String description;
-    protected boolean inflow;
+
+    // Money direction
+    protected Txtype txtype;
     protected String transactionCategory;
 
-    public void setAmount(float amount) {
-        this.amount = amount;
-        this.inflow = amount >= 0;
+    public enum Txtype {
+        INFLOW,
+        OUTFLOW
     }
+
+
+    protected Transaction(Long id, Long accountId, BigDecimal amount,
+                          String description, Instant createTime, Txtype txtype,
+                          String transactionCategory) {
+        this.id = id;
+        this.accountId = accountId;
+        this.amount = amount;
+        this.description = description;
+        this.createTime = createTime;
+        this.txtype = txtype;
+        this.transactionCategory = transactionCategory;
+    }
+
 }

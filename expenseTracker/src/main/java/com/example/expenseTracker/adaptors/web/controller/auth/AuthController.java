@@ -1,8 +1,9 @@
-package com.example.expenseTracker.adaptors.web.controller;
+package com.example.expenseTracker.adaptors.web.controller.auth;
 
 import com.example.expenseTracker.adaptors.web.dto.LoginRequestDto;
 import com.example.expenseTracker.adaptors.web.dto.SignupRequestDto;
-import com.example.expenseTracker.application.services.AuthService;
+import com.example.expenseTracker.application.services.auth.AuthService;
+import com.example.expenseTracker.application.usecase.auth.AuthUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,20 +13,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    private final AuthService authService;
+    // use the interface
+    private final AuthUseCase authUseCase;
 
-    public AuthController(AuthService authService) {
-        this.authService = authService;
+    public AuthController(AuthUseCase authUseCase) {
+        this.authUseCase = authUseCase;
     }
 
     @PostMapping("/signup")
     public ResponseEntity<AuthService.TokenPair> signup (@RequestBody SignupRequestDto dto) {
-        return ResponseEntity.ok(this.authService.signUp(dto.getUsername(), dto.getEmail(), dto.getPassword()));
+        return ResponseEntity.ok(this.authUseCase.signUp(dto));
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthService.TokenPair> login(@RequestBody LoginRequestDto dto) {
-        return ResponseEntity.ok(this.authService.login(dto.getUsername(), dto.getEmail(), dto.getPassword()));
+        return ResponseEntity.ok(this.authUseCase.login(dto));
     }
 
 }

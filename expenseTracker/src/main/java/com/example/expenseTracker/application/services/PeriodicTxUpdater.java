@@ -1,16 +1,17 @@
 package com.example.expenseTracker.application.services;
 
 import com.example.expenseTracker.adaptors.security.JwtService;
-import com.example.expenseTracker.application.ports.transaction.periodic.PeriodicTransactionPort;
+import com.example.expenseTracker.application.ports.transaction.periodic.PeriodicTransactionRepository;
+import com.example.expenseTracker.application.services.auth.AuthService;
 import com.example.expenseTracker.domain.entity.account.user_acc.UserAccount;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PeriodicTxUpdater {
-    private final PeriodicTransactionPort txPort;
+    private final PeriodicTransactionRepository txPort;
     private final JwtService jwt;          // or whatever issues tokens
 
-    public PeriodicTxUpdater(PeriodicTransactionPort txPort, JwtService jwt) {
+    public PeriodicTxUpdater(PeriodicTransactionRepository txPort, JwtService jwt) {
         this.txPort = txPort;
         this.jwt = jwt;
     }

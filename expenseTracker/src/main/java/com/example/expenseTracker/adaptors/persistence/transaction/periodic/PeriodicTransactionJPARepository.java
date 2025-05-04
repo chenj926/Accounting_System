@@ -1,56 +1,23 @@
 package com.example.expenseTracker.adaptors.persistence.transaction.periodic;
 
-import com.example.expenseTracker.application.ports.transaction.periodic.PeriodicTransactionPort;
+import com.example.expenseTracker.application.ports.transaction.periodic.PeriodicTransactionRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.List;
 
-@Repository
-public class PeriodicTransactionJPARepository implements PeriodicTransactionPort {
-    private final SpringDataPeriodicTransactionTemplateRepo templateRepo;
-    private final SpringDataTransactionRepo transactionRepo;
-
-    public PeriodicTransactionJPARepository(
-            SpringDataPeriodicTransactionTemplateRepo templateRepo,
-            SpringDataTransactionRepo transactionRepo
-    ) {
-        this.templateRepo = templateRepo;
-        this.transactionRepo = transactionRepo;
-    }
-
-    /**
-     * For each periodic‐template belonging to userId, generates and saves
-     * all transactions that should have occurred between lastRun and now.
-     */
-    @Override
-    @Transactional
-    public void createMissingTransactionsForUser(Long userId, Instant since) {
-        List<PeriodicTransactionTemplateEntity> templates =
-                templateRepo.findByUserId(userId);
-
-        Instant now = Instant.now();
-        for (PeriodicTransactionTemplateEntity template : templates) {
-            // start scheduling from the later of (lastRun or since)
-            Instant nextRun = template.getLastRun().isAfter(since)
-                    ? template.getLastRun().plus(template.getInterval())
-                    : since;
-
-            while (!nextRun.isAfter(now)) {
-                TransactionJPAEntity tx = new TransactionJPAEntity();
-                tx.setUserId(userId);
-                tx.setAmount(template.getAmount());
-                tx.setDescription(template.getDescription());
-                tx.setTimestamp(nextRun);
-
-                transactionRepo.save(tx);
-                nextRun = nextRun.plus(template.getInterval());
-            }
-
-            // update the template’s lastRun so we don’t double-create
-            template.setLastRun(now);
-            templateRepo.save(template);
-        }
-    }
+public interface PeriodicTransactionJPARepository extends JpaRepository<PeriodicTransactionJPAEntity, Long> {
+    @Query(
+            "SELECT p from PeriodicTransactionJPAEntity p " +
+                    "WHERE p.accountId = :accountId " +
+                    "AND p.lastExecutedAt is NULL " +
+                    "OR p.lastExecutedAt + p.interval < :now "
+    )
+    List<PeriodicTransactionJPAEntity> duePeriodic(@Param("accountId") Long accountId,
+                                                   @Param("now") Instant now);
 
 }

@@ -1,7 +1,11 @@
 package com.example.expenseTracker.domain.entity.transaction.onetime;
 
 import com.example.expenseTracker.domain.entity.transaction.Transaction;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDate;
 
 /**
@@ -13,6 +17,8 @@ import java.time.LocalDate;
  * @author Jessica
  * @author Eric
  */
+@Getter
+@Setter
 public class OneTimeTransaction extends Transaction {
 //    private String transactionCategory;
 
@@ -25,12 +31,9 @@ public class OneTimeTransaction extends Transaction {
      * @param description    the description of the transaction
      * @param category       the category of the transaction
      */
-    public OneTimeTransaction(String id, float amount, LocalDate date, String description, String category) {
-        this.id = id;
-        this.amount = amount;
-        this.date = date;
-        this.description = description;
-        this.transactionCategory = category;
-        this.inflow = (amount>=0);
+    public OneTimeTransaction(Long id, Long accountId, BigDecimal amount,
+                              String description, Instant createTime, Txtype txtype,
+                              String transactionCategory) {
+        super(id, accountId, amount, description, createTime, txtype, transactionCategory);
     }
 }
