@@ -1,5 +1,6 @@
 package com.example.expenseTracker.domain.entity.transaction;
 
+import java.math.BigDecimal;
 import java.util.Comparator;
 
 /**
@@ -22,13 +23,13 @@ public class TransactionComparator implements Comparator<Transaction> {
     @Override
     public int compare(Transaction t1, Transaction t2) {
         // Compare by date
-        int dateComparison = t1.getDate().compareTo(t2.getDate());
+        int dateComparison = t1.getCreateTime().compareTo(t2.getCreateTime());
         if (dateComparison != 0) {
             return dateComparison;
         }
 
         // Compare by amount
-        int amountComparison = Double.compare(t1.getAmount(), t2.getAmount());
+        int amountComparison = t1.getAmount().compareTo(t2.getAmount());
         if (amountComparison != 0) {
             return amountComparison;
         }

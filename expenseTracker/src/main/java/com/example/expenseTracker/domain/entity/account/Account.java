@@ -5,6 +5,8 @@ import com.example.expenseTracker.domain.entity.transaction.TransactionComparato
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.swing.plaf.basic.BasicIconFactory;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -35,13 +37,13 @@ public abstract class Account {
     protected List<Transaction> transactions;
 
     /** Total income recorded */
-    protected float totalIncome;
+    protected BigDecimal totalIncome;
 
     /** Total outflow recorded */
-    protected float totalOutflow;
+    protected BigDecimal totalOutflow;
 
     /** Net balance */
-    protected float totalBalance;
+    protected BigDecimal totalBalance;
 
     /** Last login date */
     protected Instant lastLoginAt;
@@ -56,9 +58,9 @@ public abstract class Account {
         this.id = id;
         this.email = email;
         this.transactions = new ArrayList<>();
-        this.totalIncome = 0.0f;
-        this.totalOutflow = 0.0f;
-        this.totalBalance = 0.0f;
+        this.totalIncome = BigDecimal.valueOf(0.0);
+        this.totalOutflow = BigDecimal.valueOf(0.0);
+        this.totalBalance = BigDecimal.valueOf(0.0);
         this.lastLoginAt = lastLoginAt;
     }
 
@@ -66,7 +68,7 @@ public abstract class Account {
      * Constructs an Account with specified balances.
      */
     public Account(String username, String password, Long id, String email, Instant lastLoginAt,
-                   float totalIncome, float totalOutflow, float totalBalance) {
+                   BigDecimal totalIncome, BigDecimal totalOutflow, BigDecimal totalBalance) {
         this.username = username;
         this.password = password;
         this.id = id;
@@ -98,12 +100,14 @@ public abstract class Account {
      * Updates totals based on a transaction.
      */
     private void updateTotals(Transaction transaction) {
-        float amount = transaction.getAmount();
-        if (amount > 0) {
-            totalIncome += amount;
+        BigDecimal amount = transaction.getAmount();
+        Transaction.Txtype txtype = transaction.getTxtype();
+
+        if (txtype == Transaction.Txtype.INFLOW) {
+            this.totalIncome = totalIncome.add(amount);
         } else {
-            totalOutflow += amount;
+            this.totalOutflow = totalOutflow.add(amount);
         }
-        totalBalance += amount;
+        this.totalBalance = totalBalance.add(amount);
     }
 }

@@ -1,12 +1,10 @@
 package com.example.expenseTracker.adaptors.persistence.transaction;
 
-import com.example.expenseTracker.adaptors.persistence.user_acc.UserAccountJPAEntity;
 import com.example.expenseTracker.application.ports.transaction.TransactionRepository;
-import com.example.expenseTracker.domain.entity.account.user_acc.UserAccount;
-import com.example.expenseTracker.domain.entity.transaction.Transaction;
 import com.example.expenseTracker.domain.entity.transaction.onetime.OneTimeTransaction;
 import lombok.*;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
@@ -45,8 +43,9 @@ interface TxMapper {
 //    @Mapping(target = "totalBalance", ignore = true)
 //    @Mapping(target = "sharedAccounts", ignore = true)
 //    @Mapping(target = "transactions", ignore = true)   // <- new unmapped field mentioned in the warning
+    @Mapping(target="createTime", source="timestamp")
     OneTimeTransaction toDomain(TransactionJPAEntity e);
 
-    //    @InheritInverseConfiguration
+    @Mapping(target="timestamp", source="createTime")
     TransactionJPAEntity toJpa(OneTimeTransaction d);
 }

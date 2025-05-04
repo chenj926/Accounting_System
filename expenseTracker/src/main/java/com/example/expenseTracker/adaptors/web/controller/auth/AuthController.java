@@ -3,7 +3,7 @@ package com.example.expenseTracker.adaptors.web.controller.auth;
 import com.example.expenseTracker.adaptors.web.dto.LoginRequestDto;
 import com.example.expenseTracker.adaptors.web.dto.SignupRequestDto;
 import com.example.expenseTracker.application.services.auth.AuthService;
-import com.example.expenseTracker.application.usecase.auth.AuthUseCase;
+import com.example.expenseTracker.application.use_case_ports.auth.AuthUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

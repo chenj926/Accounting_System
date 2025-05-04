@@ -2,18 +2,17 @@ package com.example.expenseTracker.adaptors.web.controller.transaction;
 
 import com.example.expenseTracker.adaptors.web.dto.OneTimeRequestDto;
 import com.example.expenseTracker.adaptors.web.dto.PeriodicRequestDto;
-import com.example.expenseTracker.application.usecase.transaction.TransactionUseCase;
+import com.example.expenseTracker.application.use_case_ports.transaction.TransactionUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
-import java.time.temporal.TemporalUnit;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/transactions")
+@RequestMapping("/api/transactions")
 @RequiredArgsConstructor
 public class TransactionController {
     private final TransactionUseCase txUseCase;
@@ -31,7 +30,7 @@ public class TransactionController {
                 dto.getCategory());
     }
 
-    @PostMapping("/recurring")
+    @PostMapping("/periodic")
     public Long schedulePeriodicTx(@RequestBody PeriodicRequestDto dto) {
         return this.txUseCase.schedulePeriodicTx(
                 dto.getAccountId(), dto.getAmount(), dto.getDescription(),

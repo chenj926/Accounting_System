@@ -1,4 +1,4 @@
-package com.example.expenseTracker.application.usecase.transaction;
+package com.example.expenseTracker.application.use_case_ports.transaction;
 
 import com.example.expenseTracker.domain.entity.transaction.Transaction;
 

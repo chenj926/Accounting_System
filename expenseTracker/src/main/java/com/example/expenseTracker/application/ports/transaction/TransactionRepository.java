@@ -1,6 +1,6 @@
 package com.example.expenseTracker.application.ports.transaction;
 
-import com.example.expenseTracker.domain.entity.transaction.Transaction;
+
 import com.example.expenseTracker.domain.entity.transaction.onetime.OneTimeTransaction;
 
 import java.time.Instant;

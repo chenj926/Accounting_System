@@ -4,7 +4,7 @@ import com.example.expenseTracker.adaptors.web.dto.LoginRequestDto;
 import com.example.expenseTracker.adaptors.web.dto.SignupRequestDto;
 import com.example.expenseTracker.application.ports.user_acc.UserAccountRepository;
 import com.example.expenseTracker.application.services.PeriodicTxUpdater;
-import com.example.expenseTracker.application.usecase.auth.AuthUseCase;
+import com.example.expenseTracker.application.use_case_ports.auth.AuthUseCase;
 import com.example.expenseTracker.domain.entity.account.AccountFactory;
 import com.example.expenseTracker.domain.entity.account.user_acc.UserAccount;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,4 +1,4 @@
-package com.example.expenseTracker.application.usecase.auth;
+package com.example.expenseTracker.application.use_case_ports.auth;
 
 import com.example.expenseTracker.adaptors.web.dto.LoginRequestDto;
 import com.example.expenseTracker.adaptors.web.dto.SignupRequestDto;

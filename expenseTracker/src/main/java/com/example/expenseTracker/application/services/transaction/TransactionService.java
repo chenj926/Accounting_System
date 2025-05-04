@@ -2,7 +2,7 @@ package com.example.expenseTracker.application.services.transaction;
 
 import com.example.expenseTracker.application.ports.transaction.periodic.PeriodicTransactionRepository;
 import com.example.expenseTracker.application.ports.transaction.TransactionRepository;
-import com.example.expenseTracker.application.usecase.transaction.TransactionUseCase;
+import com.example.expenseTracker.application.use_case_ports.transaction.TransactionUseCase;
 import com.example.expenseTracker.domain.entity.transaction.Transaction;
 import com.example.expenseTracker.domain.entity.transaction.onetime.OneTimeTransaction;
 import com.example.expenseTracker.domain.entity.transaction.periodic.PeriodicTransaction;
@@ -56,17 +56,19 @@ public class TransactionService implements TransactionUseCase {
     }
 
     @Override
+    @Transactional
     public void materialiseDue(Long accountId) {
         Instant now = Instant.now();
 
         List<PeriodicTransaction> periodicTx =
                 this.periodicTransactionRepository.duePeriodic(accountId, now);
 
+        // keep update
         List<OneTimeTransaction> realised = new ArrayList<>();
         for (PeriodicTransaction pdTx : periodicTx) {
-            if (pdTx.isExecutionDue(now)) {
-                pdTx.markExecuted(now);
-                OneTimeTransaction oneTimeTx = pdTx.createInstance(now);
+            while (pdTx.isExecutionDue(now)) {
+                pdTx.markExecuted(pdTx.nextExecutionTime());
+                OneTimeTransaction oneTimeTx = pdTx.createInstance(pdTx.getLastExecutedAt());
                 realised.add(oneTimeTx);
             }
         }

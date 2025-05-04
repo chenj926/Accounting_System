@@ -20,7 +20,7 @@ import java.time.LocalDate;
 @Setter
 public class PeriodicTransaction extends Transaction {
 
-    private Duration interval;
+    private Duration interval;  // e.g., PT30D for “every 30 days”
     private Instant lastExecutedAt;
 
     /**
@@ -48,6 +48,10 @@ public class PeriodicTransaction extends Transaction {
     public boolean isExecutionDue(Instant now) {
         return this.lastExecutedAt == null
                 || this.lastExecutedAt.plus(this.interval).isBefore(now);
+    }
+
+    public Instant nextExecutionTime() {
+        return this.lastExecutedAt.plus(this.interval);
     }
 
     /** Mark this rule as executed at <code>now</code>. */
