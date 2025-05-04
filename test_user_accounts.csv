@@ -1,3 +1,0 @@
-id,username,password,income,outflow,balance,lastLoginDate,sharedIds
-UA001,alice,password1,1000.0,500.0,500.0,2023-08-10,SA001;SA002
-UA002,bob,password2,2000.0,1000.0,1000.0,null,

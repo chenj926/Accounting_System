@@ -1,3 +1,0 @@
-id,userIds,password,income,outflow,balance,lastLoginDate
-SA001,user1;user2;user3,password1,1000.0,500.0,500.0,2023-08-10
-SA002,user4;user5;user6,password2,2000.0,1000.0,1000.0,null
