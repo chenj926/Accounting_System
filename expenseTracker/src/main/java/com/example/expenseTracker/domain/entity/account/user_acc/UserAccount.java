@@ -28,14 +28,14 @@ public class UserAccount extends Account {
         this.sharedAccounts = new HashSet<>();
     }
 
-    /**
-     * Constructs a UserAccount with specified balances and empty shared accounts.
-     */
-    public UserAccount(String username, String password, Long userAccountId, String email, Instant lastLoginAt,
-                       float totalIncome, float totalOutflow, float totalBalance) {
-        super(username, password, userAccountId, email, lastLoginAt, totalIncome, totalOutflow, totalBalance);
-        this.sharedAccounts = new HashSet<>();
-    }
+//    /**
+//     * Constructs a UserAccount with specified balances and empty shared accounts.
+//     */
+//    public UserAccount(String username, String password, Long userAccountId, String email, Instant lastLoginAt,
+//                       float totalIncome, float totalOutflow, float totalBalance) {
+//        super(username, password, userAccountId, email, lastLoginAt, totalIncome, totalOutflow, totalBalance);
+//        this.sharedAccounts = new HashSet<>();
+//    }
 
     /**
      * Adds a shared account ID to this user account.

@@ -16,6 +16,8 @@ public class UserAccountJPAEntity {
     Long id;
     String username;
     String email;
+
+    @Column(name = "pwd")
     String password;
     Instant lastLoginAt;
 

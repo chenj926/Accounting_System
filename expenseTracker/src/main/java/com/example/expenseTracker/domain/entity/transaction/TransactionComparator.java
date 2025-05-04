@@ -33,6 +33,6 @@ public class TransactionComparator implements Comparator<Transaction> {
             return amountComparison;
         }
 
-        return t1.getIdentification().compareTo(t2.getIdentification());
+        return t1.getId().compareTo(t2.getId());
     }
 }

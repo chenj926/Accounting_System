@@ -2,6 +2,7 @@ package com.example.expenseTracker.domain.entity.account;
 
 import com.example.expenseTracker.domain.entity.account.shared_acc.SharedAccount;
 import com.example.expenseTracker.domain.entity.account.user_acc.UserAccount;
+import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.util.Set;
@@ -12,6 +13,7 @@ import java.util.Set;
  *
  * @author Jessica
  */
+@Component
 public class AccountFactory {
 
     /**
@@ -30,11 +32,12 @@ public class AccountFactory {
     /**
      * Creates a new SharedAccount object with the specified id.
      *
-     * @param sharedAccountid the id for the new shared account
+     * @param sharedId the id for the new shared account
      * @param sharedAccountPassword the password for the new shared account
      * @return a new SharedAccount object
      */
-    public SharedAccount createSharedAccount(String sharedAccountid, Set<String> users, String sharedAccountPassword) {
-        return new SharedAccount(sharedAccountid, users, sharedAccountPassword);
+    public SharedAccount createSharedAccount(Long sharedId, String sharedUsername, Set<String> users,
+                                             String sharedAccountPassword, String email, Instant lastLoginAt) {
+        return new SharedAccount(sharedId, sharedUsername, users, sharedAccountPassword, email, lastLoginAt);
     }
 }

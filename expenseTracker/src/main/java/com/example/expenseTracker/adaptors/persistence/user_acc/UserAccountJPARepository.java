@@ -3,7 +3,9 @@ package com.example.expenseTracker.adaptors.persistence.user_acc;
 import com.example.expenseTracker.application.ports.user_acc.UserAccountRepository;
 import com.example.expenseTracker.domain.entity.account.user_acc.UserAccount;
 import org.apache.catalina.User;
+import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +21,14 @@ interface SpringDataUserRepo extends JpaRepository<UserAccountJPAEntity, Long> {
 
 @Mapper(componentModel = "spring")
 interface UserMapper {
+//    @Mapping(target = "totalIncome", ignore = true)
+//    @Mapping(target = "totalOutflow", ignore = true)
+//    @Mapping(target = "totalBalance", ignore = true)
+//    @Mapping(target = "sharedAccounts", ignore = true)
+//    @Mapping(target = "transactions", ignore = true)   // <- new unmapped field mentioned in the warning
     UserAccount toDomain(UserAccountJPAEntity e);
+
+//    @InheritInverseConfiguration
     UserAccountJPAEntity toJpa(UserAccount d);
 }
 
