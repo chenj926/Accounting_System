@@ -21,14 +21,15 @@ interface SpringDataUserRepo extends JpaRepository<UserAccountJPAEntity, Long> {
 
 @Mapper(componentModel = "spring")
 interface UserMapper {
-//    @Mapping(target = "totalIncome", ignore = true)
-//    @Mapping(target = "totalOutflow", ignore = true)
-//    @Mapping(target = "totalBalance", ignore = true)
-//    @Mapping(target = "sharedAccounts", ignore = true)
-//    @Mapping(target = "transactions", ignore = true)   // <- new unmapped field mentioned in the warning
+
+//    // entity → domain
+//    @Mapping(source = "pwd", target = "password")
+    @Mapping(source = "balance", target = "totalBalance")
     UserAccount toDomain(UserAccountJPAEntity e);
 
+//    // domain → entity  (reverse mapping re-uses the rule)
 //    @InheritInverseConfiguration
+    @Mapping(source = "totalBalance", target = "balance")
     UserAccountJPAEntity toJpa(UserAccount d);
 }
 
@@ -59,5 +60,10 @@ public class UserAccountJPARepository implements UserAccountRepository {
     @Override
     public void updateLastLogin(Long userId, Instant ts) {
         jpa.findById(userId).ifPresent(e -> { e.setLastLoginAt(ts); jpa.save(e); });
+    }
+
+    @Override
+    public Optional<UserAccount> findById(Long id) {
+        return jpa.findById(id).map(mapper::toDomain);
     }
 }

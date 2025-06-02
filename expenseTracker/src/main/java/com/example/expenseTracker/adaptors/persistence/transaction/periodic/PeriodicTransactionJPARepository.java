@@ -23,7 +23,7 @@ interface SpringDataPeriodicRepo extends JpaRepository<PeriodicTransactionJPAEnt
        FROM periodic_tx p
        WHERE p.account_id = :accountId
          AND (p.last_executed_at IS NULL
-              OR DATE_ADD(p.last_executed_at, INTERVAL p.interval_secs SECOND) <= :now)
+              OR DATE_ADD(p.last_executed_at, INTERVAL (p.run_interval / 1000000000) SECOND) <= :now)
       """, nativeQuery = true
     )
     List<PeriodicTransactionJPAEntity> duePeriodic(@Param("accountId") Long accountId,
@@ -33,7 +33,10 @@ interface SpringDataPeriodicRepo extends JpaRepository<PeriodicTransactionJPAEnt
 // Map Struct mapper
 @Mapper(componentModel = "spring")
 interface PeriodicTxMapper {
+    @Mapping(source = "createdAt", target = "createTime") // For toDomain
     PeriodicTransaction toDomain(PeriodicTransactionJPAEntity e);
+
+    @Mapping(source = "createTime", target = "createdAt") // For toJpa
     PeriodicTransactionJPAEntity toJpa(PeriodicTransaction d);
 }
 

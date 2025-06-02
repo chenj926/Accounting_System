@@ -105,9 +105,10 @@ public abstract class Account {
 
         if (txtype == Transaction.Txtype.INFLOW) {
             this.totalIncome = totalIncome.add(amount);
+            this.totalBalance = totalBalance.add(amount);  // Add for inflow
         } else {
             this.totalOutflow = totalOutflow.add(amount);
+            this.totalBalance = totalBalance.subtract(amount);  // Subtract for outflow
         }
-        this.totalBalance = totalBalance.add(amount);
     }
 }

@@ -38,11 +38,7 @@ public class TransactionJPAAdaptor implements TransactionRepository {
 
 @Mapper(componentModel = "spring")
 interface TxMapper {
-    //    @Mapping(target = "totalIncome", ignore = true)
-//    @Mapping(target = "totalOutflow", ignore = true)
-//    @Mapping(target = "totalBalance", ignore = true)
-//    @Mapping(target = "sharedAccounts", ignore = true)
-//    @Mapping(target = "transactions", ignore = true)   // <- new unmapped field mentioned in the warning
+
     @Mapping(target="createTime", source="timestamp")
     OneTimeTransaction toDomain(TransactionJPAEntity e);
 

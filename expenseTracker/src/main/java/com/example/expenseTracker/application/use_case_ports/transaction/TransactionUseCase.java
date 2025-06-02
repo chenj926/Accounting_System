@@ -20,7 +20,8 @@ public interface TransactionUseCase {
                             String description,
                             String category,
                             Duration every,
-                            Transaction.Txtype type);
+                            Transaction.Txtype type,
+                            Instant firstTxTime);
 
     List<TransactionView> list(Long accountId, Instant from, Instant to);
 
@@ -34,5 +35,6 @@ public interface TransactionUseCase {
         public String description;
         public Instant timestamp;
         public Transaction.Txtype txtype;
+        public String category;
     }
 }

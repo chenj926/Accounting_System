@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
@@ -27,5 +28,16 @@ public class UserAccountJPAEntity {
     String password;
 
     Instant lastLoginAt;
+
+    // precision: 17 digit before decimal
+    // scale: 2 decimal place
+    @Column(name = "total_income", precision = 19, scale = 2)
+    private BigDecimal totalIncome = BigDecimal.ZERO;
+
+    @Column(name = "total_outflow", precision = 19, scale = 2)
+    private BigDecimal totalOutflow = BigDecimal.ZERO;
+
+    @Column(name = "balance", precision = 19, scale = 2) // Net balance
+    private BigDecimal balance = BigDecimal.ZERO;
 
 }

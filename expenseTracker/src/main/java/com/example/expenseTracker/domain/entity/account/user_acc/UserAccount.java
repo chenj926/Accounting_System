@@ -4,6 +4,7 @@ import com.example.expenseTracker.domain.entity.account.Account;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;

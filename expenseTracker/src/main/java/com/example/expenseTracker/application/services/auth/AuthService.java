@@ -47,7 +47,12 @@ public class AuthService implements AuthUseCase {
         String hashedPwd = encoder.encode(dto.getPassword());
 
         UserAccount saved = this.userAccountRepository.saveUser(
-                this.accountFactory.createUserAccount(dto.getUsername(), hashedPwd, null, dto.getEmail(), Instant.now())
+                this.accountFactory.createUserAccount(
+                        dto.getUsername(),
+                        hashedPwd,
+                        null,
+                        dto.getEmail(),
+                        Instant.now())
         );
 
         // no periodic update on sign‑up
@@ -57,6 +62,9 @@ public class AuthService implements AuthUseCase {
     @Override
     public TokenPair login(LoginRequestDto dto) {
         UserAccount userAccount = null;
+
+        // We will force user to enter at least username or email in the FE
+        // so no need check here
         if (dto.getEmail() == null) {
             userAccount = this.userAccountRepository
                     .findByUsername(dto.getUsername())
@@ -65,6 +73,11 @@ public class AuthService implements AuthUseCase {
             userAccount = this.userAccountRepository
                     .findByEmail(dto.getEmail())
                     .orElseThrow(() -> new IllegalArgumentException("user email incorrect!"));
+        } else {
+
+            userAccount = this.userAccountRepository
+                    .findByUsername(dto.getUsername())
+                    .orElseThrow(() -> new IllegalArgumentException("error happening!"));
         }
 
         if (!encoder.matches(dto.getPassword(), userAccount.getPassword())) {

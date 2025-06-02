@@ -25,7 +25,7 @@ public class TransactionController {
                 dto.getAccountId(),
                 dto.getAmount(),
                 dto.getDescription(),
-                dto.getWhen(),
+                dto.getTxTime(),
                 dto.getType(),
                 dto.getCategory());
     }
@@ -34,7 +34,8 @@ public class TransactionController {
     public Long schedulePeriodicTx(@RequestBody PeriodicRequestDto dto) {
         return this.txUseCase.schedulePeriodicTx(
                 dto.getAccountId(), dto.getAmount(), dto.getDescription(),
-                dto.getCategory(), dto.getEvery(), dto.getType());
+                dto.getCategory(), dto.getEvery(), dto.getType(),
+                dto.getFirstTxTime());
     }
 
     @GetMapping("/{accountId}")

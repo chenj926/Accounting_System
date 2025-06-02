@@ -15,19 +15,24 @@ public class PeriodicTransactionJPAEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-//    @Column(name="account_id")
+
     Long accountId;
+
     BigDecimal amount;
+
     String description;
-//    @Column(name="transaction_category")
+
     String transactionCategory;
+
     @Column(name="create_at")
     Instant createdAt;
+
     @Enumerated(EnumType.STRING)
     Transaction.Txtype txtype;
 
     @Column(name="run_interval")
     Duration interval;
+
     @Column(name="last_executed_at")
     Instant lastExecutedAt;
 }

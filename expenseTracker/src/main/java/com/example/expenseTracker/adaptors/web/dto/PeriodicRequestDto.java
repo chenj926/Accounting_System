@@ -25,4 +25,6 @@ public class PeriodicRequestDto {
     Duration every;
     @NotNull
     Transaction.Txtype type;
+    @NotNull
+    Instant firstTxTime;
 }

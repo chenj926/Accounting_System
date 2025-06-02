@@ -21,7 +21,7 @@ public class OneTimeRequestDto {
     @NotBlank
     String category;
     @NotNull
-    Instant when;
+    Instant txTime;
     @NotNull
     Transaction.Txtype type;
 }
